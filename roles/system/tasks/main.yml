@@ -1,0 +1,30 @@
+---
+# There's a lot of stuff I want to do in here. Most of it already works on remote servers and on local machines.
+# For some reason, that same role isn't working on my 14.04 chroot. So I'm going to switch this to something
+# Really basic just to see what's going on
+# Then we'll move all the other stuff back in, piece by piece
+
+  # Necessary because of a bug see here: https://groups.google.com/forum/#!topic/ansible-project/P02DhiegkT8
+
+#- name: install python-apt
+  #raw: apt-get update && apt-get install python-apt -y -q
+
+#- name: Install packages with apt
+  #apt: pkg={{ item }} state=installed update_cache=true
+  #with_items: pkglist
+
+#- name: Get my dotfiles from github
+  #git: repo=https://github.com/smcabrera/castillo-cabrera.git dest=/home/stephen/.homesick/repos/castillo-cabrera
+
+#- name: Clone the dotfiles repo if it doesn't already exist
+  #command: git clone "https://github.com/smcabrera/castillo-cabrera.git" creates=
+
+  # You can also use the 'args' form to provide the options. This command
+  # # will change the working directory to somedir/ and will only run when
+  # # /path/to/database doesn't exist.
+- name: 
+  command: git clone "https://github.com/smcabrera/castillo-cabrera.git"
+  args:
+    chdir: /home/stephen/
+    creates: /path/to/database
+

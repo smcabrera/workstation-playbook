@@ -1,0 +1,18 @@
+---
+# the host in which the playbook will be run
+- hosts: localhost
+  # In this example, we are using a localhost, so this is needed
+  connection: local
+
+  # the target
+  user: stephen
+
+  # this makes all tasks run with sudo by default
+  sudo: true
+
+  # additional variables
+  vars:
+    user: stephen
+
+  roles:
+    - system

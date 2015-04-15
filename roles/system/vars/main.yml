@@ -1,0 +1,57 @@
+---
+username: stephen
+rubyversion: 2.1.2
+
+home_dir: /home/{{ username }}/
+dotfiles_dir: /etc/ansible/roles/dev/files/castillo-cabrera/home/
+gemlist:
+  - bundler
+  - fastri
+  - gemrat
+  - gist
+  - homesick
+  - jazz_fingers
+  - mechanize
+  - pry
+  - pry-doc
+  - rails
+  - rcodetools
+  - ruby-tapas-downloader
+  - timetrap
+  - viddl-rb
+npm:
+  - jshint
+dotfiles:
+  - .tmux.conf
+  - .vimrc
+  - .zshrc
+
+pkglist:
+  - 'build-essential'
+  - 'cowsay'
+  - 'curl'
+  - 'figlet'
+  - 'git'
+  - 'git-core'
+  - 'libcurl4-openssl-dev'
+  - 'libreadline-dev'
+  - 'libsqlite3-dev'
+  - 'libssl-dev'
+  - 'libxml2-dev'
+  - 'libxslt1-dev'
+  - 'libyaml-dev'
+  - 'python-software-properties'
+  - 'ruby'
+  - 'ruby-dev'
+  - 'software-properties-common'
+  - 'sqlite3'
+  - 'ssh'
+  - 'time'
+  - 'tmux'
+  - 'tmux'
+  - 'vim'
+  - 'vim-gtk'
+  - 'vlc'
+  - 'zlib1g-dev'
+  - 'zsh'
+

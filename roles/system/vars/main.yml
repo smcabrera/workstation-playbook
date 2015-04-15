@@ -48,7 +48,6 @@ pkglist:
   - 'ssh'
   - 'time'
   - 'tmux'
-  - 'tmux'
   - 'vim'
   - 'vim-gtk'
   - 'vlc'

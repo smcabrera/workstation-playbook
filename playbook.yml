@@ -13,6 +13,27 @@
   # additional variables
   vars:
     user: stephen
+    username: stephen
+    ruby_version: 2.1.2
+    home_dir: /home/{{ username }}/
 
-  roles:
-    - system
+  #roles:
+    #- system
+
+  tasks:
+    - name: Get rbenv from github
+      sudo_user: "{{ username }}"
+      git: repo=https://github.com/sstephenson/rbenv.git dest={{ home_dir }}.rbenv
+
+    - name: Get ruby build plugin for rbenv from github
+      sudo_user: "{{ username }}"
+      git: repo=https://github.com/sstephenson/ruby-build.git dest={{ home_dir }}.rbenv/plugins/ruby-build
+
+    - name: Restart shell
+      raw: zsh
+
+    - name: Install ruby with rbenv
+      sudo_user: "{{ username }}"
+      #command: rbenv install {{ ruby_version }}
+      shell: zsh -lc "rbenv install {{ ruby_version }}"
+

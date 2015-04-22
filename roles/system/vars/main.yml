@@ -1,9 +1,11 @@
 ---
 username: stephen
-rubyversion: 2.1.2
+castle_name: castillo-cabrera
+github_username: smcabrera
+ruby_version: 2.1.2
+rails_version: 4.2.0
 
 home_dir: /home/{{ username }}/
-dotfiles_dir: /etc/ansible/roles/dev/files/castillo-cabrera/home/
 gemlist:
   - bundler
   - fastri
@@ -17,16 +19,34 @@ gemlist:
   - rails
   - rcodetools
   - ruby-tapas-downloader
+  - stripe-cli
   - timetrap
   - viddl-rb
+
 npm:
   - jshint
+
 dotfiles:
+  - .bling
+  - .git_template
+  - .gitconfig
+  - .irb-history
+  - .irbrc
+  - .laptop.local
+  - .local
+  - .oh-my-zsh
+  - .oh-my-zsh-custom
+  - .tim
+  - .timetrap.yml
   - .tmux.conf
+  - .tmuxinator
+  - .vim
   - .vimrc
   - .zshrc
+  - bin
 
-pkglist:
+  apt_packages:
+
   - 'build-essential'
   - 'cowsay'
   - 'curl'
@@ -40,9 +60,13 @@ pkglist:
   - 'libxml2-dev'
   - 'libxslt1-dev'
   - 'libyaml-dev'
+  - 'mplayer'
+  - 'python'
+  - 'python-pip'
   - 'python-software-properties'
   - 'ruby'
   - 'ruby-dev'
+  - 'silversearcher-ag'
   - 'software-properties-common'
   - 'sqlite3'
   - 'ssh'
@@ -53,4 +77,8 @@ pkglist:
   - 'vlc'
   - 'zlib1g-dev'
   - 'zsh'
-
+  - 'mplayer2'
+  # Not sure how to add repositories that don't come with the distrubtion via ansible
+  # 
+python_packages:
+  - 'mps-youtube' # http://www.webupd8.org/2014/02/new-command-line-youtube-player-and.html

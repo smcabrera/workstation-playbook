@@ -1,0 +1,34 @@
+---
+# Install ruby, rails and selected gems
+# Assumes you already have rbenv in your path in zshrc or bashrc
+
+- name: Get rbenv from github
+  sudo_user: "{{ username }}"
+  git: repo=https://github.com/sstephenson/rbenv.git dest={{ home_dir }}.rbenv
+
+- name: Get ruby build plugin for rbenv from github
+  sudo_user: "{{ username }}"
+  git: repo=https://github.com/sstephenson/ruby-build.git dest={{ home_dir }}.rbenv/plugins/ruby-build
+
+- name: Restart shell
+  shell: zsh
+
+- name: Install ruby with rbenv
+  sudo_user: "{{ username }}"
+  command: rbenv install {{ ruby_version }}
+
+- name: Install gems from gemlist
+  gem: name= {{ item }} state=latest
+  with_items: gemlist
+
+- name: Install Bundler with rbenv ruby ({{ ruby_version }})
+  sudo_user: "{{ username }}"
+  command: zsh -lc "gem install bundler"
+
+- name: Install Rails with rbenv ruby ({{ ruby_version }})
+  sudo_user: "{{ username }}"
+  command: zsh -lc "gem install rails"
+
+- name: Make rails accessible everywhere
+  command: rbenv rehash
+

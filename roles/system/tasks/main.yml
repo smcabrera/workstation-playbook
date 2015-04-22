@@ -13,18 +13,62 @@
   #apt: pkg={{ item }} state=installed update_cache=true
   #with_items: pkglist
 
-#- name: Get my dotfiles from github
-  #git: repo=https://github.com/smcabrera/castillo-cabrera.git dest=/home/stephen/.homesick/repos/castillo-cabrera
+- name: Install python packages
+  pip: name={{ item }}
+  with_items: python_packages
 
-#- name: Clone the dotfiles repo if it doesn't already exist
-  #command: git clone "https://github.com/smcabrera/castillo-cabrera.git" creates=
+#- name: Install thor with the system ruby
+  #command: gem install thor
+   #For some reason thor--a dependency for homesick--didn't install automatically with homesick. Weird.
 
-  # You can also use the 'args' form to provide the options. This command
-  # # will change the working directory to somedir/ and will only run when
-  # # /path/to/database doesn't exist.
-- name: 
-  command: git clone "https://github.com/smcabrera/castillo-cabrera.git"
+#- name: Install homesick with the system ruby
+  #command: gem install homesick
+  #For some reason the "gem" module totally failed to install the latest version. Fortunately command works just as well here.
+
+- name: Use homesick to clone dotfiles repo ( {{ github_username }}/{{ castle_name }} )
+  command: homesick clone smcabrera/castillo-cabrera
+  sudo_user: "{{ username }}"
   args:
-    chdir: /home/stephen/
-    creates: /path/to/database
+    chdir: /home/{{ username }}
+    creates: /home/{{ username }}/.homesick/repos/castillo-cabrera
+
+- name: Remove any existing dotfiles so that homesick symlink will succeed
+  file: path=/home/{{ username }}/{{ item }} state=absent
+  with_items: dotfiles
+
+#- name: Install zsh
+  #shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+
+#- name: Remove the oh-my-zsh zshrc to replace with my own
+  #file: path=/home/{{ username }}/.zshrc state=absent
+
+- name: Use homesick to symlink dotfiles to home directory
+  command: homesick symlink castillo-cabrera
+  sudo_user: "{{ username }}"
+  remote_user: "{{ username }}"
+  args:
+    chdir: /home/{{ username }}
+    creates: /home/{{ username }}/.zshrc
+# The above should work and, oddly, seems like it does work when I run it without sudo_user
+# However when I run it as above it just takes forever and never actually finishes
+
+- name: Get Vundle
+  git: repo=https://github.com/gmarik/Vundle.vim.git dest={{ home_dir }}.vim/bundle/Vundle.vim
+
+- name: Change shell to ZSH
+  command: chsh -s /usr/bin/zsh {{ username }}
+
+- name: Get zgen to manage zsh and plugins
+  git: repo=https://github.com/tarjoilija/zgen.git dest={{ home_dir }}.zsh/zgen
+
+#- name: Install Vim Plugins
+  #command: vim +PluginInstall +qall
+
+# For rails development
+- include: rails.yml
+#- include: postgresql.yml
+
+#- name: Install gem list with the system ruby
+  #gem: name={{ item }} state=latest
+  #with_items: gemlist
 

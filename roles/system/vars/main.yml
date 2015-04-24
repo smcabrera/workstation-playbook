@@ -18,11 +18,11 @@ gemlist:
   - pry-doc
   - rails
   - rcodetools
+  - ru
   - ruby-tapas-downloader
   - stripe-cli
   - timetrap
   - viddl-rb
-
 npm:
   - jshint
 
@@ -79,6 +79,6 @@ dotfiles:
   - 'zsh'
   - 'mplayer2'
   # Not sure how to add repositories that don't come with the distrubtion via ansible
-  # 
+  #
 python_packages:
   - 'mps-youtube' # http://www.webupd8.org/2014/02/new-command-line-youtube-player-and.html
